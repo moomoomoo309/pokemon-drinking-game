@@ -1,7 +1,7 @@
 <?php 
 $page_meta = array(
-    'title'=>'Pokemon Drinking Game Online - Full Screen',
-    'description'=>'Play The Pokemon Drinking Game Online full screen in your browser and get fucking hammered.',
+    'title'=>'Play The Pokemon Drinking Game Online Now Free In Full Screen',
+    'description'=>'Play The Pokemon Drinking Game Online now in full screen and get fucking hammered.',
     'path_to_root'=>'../',
     'head'=>'<link rel="stylesheet" type="text/css" href="/static/pokemon-drinking-game/style.css">'
 );
@@ -95,13 +95,13 @@ page_header($page_meta); ?>
 
 <div id="start">
     <div id="content">
-        <h1>Pokemon Drinking Game!</h1>
+        <h1>Play The Pokemon Drinking Game Online</h1>
         <form id="form" action="game.php">
             <table id="formTable">
             <tr><th>Player Name:</th><th>Starter:</th></tr>
             </table>
             <input id="playButton" type="submit" value="Play">
-            <p>Refresh the page to start a new game.</p>
+            <p><br><strong>Warning!</strong> Only play the Pokemon Drinking Game if you plan on getting really fucking wasted. Weaklings can substitute finishing their drinks with 6 drinks.<br><br>Refresh the page to start a new game.</p>
         </form>
     </div>
 </div>
