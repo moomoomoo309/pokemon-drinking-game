@@ -1,6 +1,5 @@
 #Pokemon Drinking Game
-This Pokemon Drinking Game is built using [jQuery](http://jquery.com) and [impress.js](https://github.com/bartaz/impress.js/).
-
+This Pokemon Drinking Game is built using [jQuery](http://jquery.com) and [impress.js](https://github.com/bartaz/impress.js/). Check it out [on my website](http://smleimberg.com/static/pokemon-drinking-game/).
 
 ##The Board
 
