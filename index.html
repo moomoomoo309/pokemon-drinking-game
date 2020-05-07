@@ -2,24 +2,30 @@
 
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <link href="style.css" rel="stylesheet" />
-    
+    <meta charset="utf-8"/>
+    <link href="style.css" rel="stylesheet"/>
+
 </head>
 
 <body class="impress-not-supported">
 
 <div class="fallback-message">
     <p>Your browser <b>doesn't support the features required</b> by impress.js.</p>
-    <p>For the best gaming experience please use the latest <b>Chrome</b>, <b>Safari</b> or <b>Firefox</b> browser, and enable JavaScript.</p>
+    <p>For the best gaming experience please use the latest <b>Chrome</b>, <b>Safari</b> or <b>Firefox</b> browser, and
+        enable JavaScript.</p>
 </div>
-<div style="display:flex;justify-content:center;align-items:center;height:100vh">
-    <div id="console"></div>
+<div id="wrapper" style="height:100vh;display:flex">
+    <div id="tags" style="display:flex;justify-content:left;align-items: center;flex-direction:column;">
+
+    </div>
+    <div id="modal" style="display:flex;justify-content:center;align-items: center;width:100vw;flex-direction:column;">
+        <div id="console"></div>
+    </div>
 </div>
 
 <div id="impress">
     <div id="overview" class="step" data-x="0" data-y="0" data-scale="30"></div>
-    <div id="board" class="step" data-x="0" data-y="0" data-scale="10"></div>
+    <div id="board" class="step" data-x="0" data-y="0" data-scale="10" style="image-rendering: crisp-edges"></div>
     <div id="rules" class="step" data-x="0" data-y="0" data-scale="8.5"></div>
     <div id="s0" class="step space" data-x="-7520" data-y="7520" data-scale="5.7"></div>
     <div id="s1" class="step space" data-x="-7520" data-y="5635" data-scale="5.7"></div>
@@ -101,7 +107,10 @@
         <h1>Pokemon Drinking Game!</h1>
         <div id="form" style="width:auto">
             <table id="formTable">
-            <tr><th>Player Name:</th><th>Starter:</th></tr>
+                <tr>
+                    <th>Player Name:</th>
+                    <th>Starter:</th>
+                </tr>
             </table>
             <button id="playButton" onclick="onPlay(this)">Play</button>
             <p>Refresh the page to start a new game.</p>
@@ -112,11 +121,17 @@
 <div id="menu">
     <button onclick="impress().goto(0)" title="Zoom out to view the entire board. KEY='w'">Overview</button>
     <button onclick="selectNextPlayer(-1)" title="Select previous player. KEY='a'"><</button>
-    <button onclick="playerName(json.selectedPlayer)" id="selectedPlayerName" title="Show this players token on the board.">Name</button>
+    <button onclick="playerName(json.selectedPlayer)" id="selectedPlayerName"
+            title="Show this players token on the board.">Name
+    </button>
     <button onclick="selectNextPlayer(1)" title="Select next player. KEY='d'">></button>
     <button onclick="roll()" title="Roll a D6. KEY='e'">Roll</button>
-    <input id="move" type="text" name="move" maxlength="3" size="2" title="Positive numbers move players forward. Negative numbers move players backward.">
-    <button onclick="go()" title="Move the currently selected player the previously specified number of spaces. KEY='w'">Go</button>
+    <input id="move" type="text" name="move" maxlength="3" size="2"
+           title="Positive numbers move players forward. Negative numbers move players backward.">
+    <button onclick="go()"
+            title="Move the currently selected player the previously specified number of spaces. KEY='w'">Go
+    </button>
+    <button onclick="nextTurn()" title="Advances to the next turn.">Next Turn</button>
 </div>
 
 <script src="js/impress.js"></script>

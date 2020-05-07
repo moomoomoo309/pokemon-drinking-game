@@ -198,9 +198,17 @@ br {
     margin: 0 auto;
 }
 
-#console {
+#modal button, #console, #tags div, #tags div div {
     color: white;
     font-size: 72px;
     z-index: 999;
     text-shadow: 2px 2px 7px black;
+}
+
+#tags div {
+    font-size: 48px !important;
+}
+
+#tags div div {
+    font-size: 20px !important;
 }
