@@ -1,4 +1,4 @@
-var spaces = {
+let spaces = {
     palletTown: 0,
     rattata: 1,
     pidgey: 2,
@@ -266,7 +266,7 @@ let pokemonIds = {
 }
 
 
-var spaceToId = {}
+let spaceToId = {}
 for (let k in spaces) {
     if (k in pokemonIds) {
         if (spaces[k] in spaceToId) {
@@ -286,7 +286,7 @@ spaceToId[spaces.abra1] = pokemonIds.abra
 spaceToId[spaces.abra2] = pokemonIds.abra
 
 
-var hard = {
+let hard = {
     "stop": [
         {
             "name": "Pallet Town",
@@ -346,7 +346,7 @@ var hard = {
 
 
 //Startup
-for (i = 0; i < hard.maxPlayers; i++) {
+for (let i = 0; i < hard.maxPlayers; i++) {
     let row = document.getElementById('formTable').appendChild(document.createElement("tr"))
     let playerInput = row.appendChild(document.createElement("td"))
     let innerInput = playerInput.appendChild(document.createElement("input"))
@@ -374,16 +374,15 @@ for (i = 0; i < hard.maxPlayers; i++) {
     bulbasaur.textContent = "Bulbasaur"
 }
 impress().goto(0);
-var json = {
+let json = {
     players: [],
     selectedPlayer: 0,
     caterpiePlayer: null
 };
-var spaceCount = document.getElementsByClassName('.space').length;
-var preSpaceCount = 3;
+let preSpaceCount = 3;
 document.getElementById('menu').style.display = 'none';
 
-function onPlay(event) {
+function onPlay() {
     let count = 0;
     for (let i = 0; i < hard.maxPlayers; i++) {
         let currentPlayer, currentStarter;
@@ -402,7 +401,9 @@ function onPlay(event) {
                 json.players[count].tags.add = function (val) {
                     if (!tags.has(val)) {
                         let tag = tagLabel.appendChild(document.createElement("div"))
+                        // noinspection JSValidateTypes
                         tag.textContent = val
+                        // noinspection JSUnresolvedVariable
                         tags.__proto__.add.call(tags, val)
                     }
                 }
@@ -413,10 +414,10 @@ function onPlay(event) {
                                 tagLabel.removeChild(tagLabel.children[children])
                                 break
                             }
+                        // noinspection JSUnresolvedVariable
                         tags.__proto__.delete.call(tags, val)
                     }
                 }
-                json.players[count].tags.add("test")
                 count++;
             } else {
                 alert("You must select a starter Pokemon for " + currentPlayer);
@@ -428,7 +429,7 @@ function onPlay(event) {
     document.getElementById('menu').style.display = 'flex';
     playerName(0);
     impress().goto(2);
-    for (i = 0; i < json.players.length; i++) {
+    for (let i = 0; i < json.players.length; i++) {
         placeToken(i, i);
     }
     hard.gameStart = true;
@@ -456,7 +457,7 @@ function d6() {
 function roll(offsetTime) {
     if (!offsetTime)
         offsetTime = 0
-    for (i = 1; i < 10; i++) {
+    for (let i = 1; i < 10; i++) {
         setTimeout(function () {
             document.getElementById('move').value = d6();
         }, (offsetTime + i * 50));
@@ -464,12 +465,12 @@ function roll(offsetTime) {
     echo("");
 }
 
-let cry = new Audio('https://pokemoncries.com/cries-old/1.mp3')
+let cry = new Audio()
 let criesCheckbox = document.getElementById("cries")
 
 function checkSpecial(num) {
     // Play cries
-    if (cries.checked) {
+    if (criesCheckbox.checked) {
         let space = json.players[json.selectedPlayer].space
         if (space === spaces.gary3) // Workaround since both spaces have the same exact pokemon on them
             space = spaces.gary2
@@ -477,6 +478,7 @@ function checkSpecial(num) {
         if (typeof pokemonOnSpace === "number") {
             cry.src = 'https://pokemoncries.com/cries-old/' + pokemonOnSpace + '.mp3'
             cry.oncanplaythrough = function () {
+                // noinspection JSIgnoredPromiseFromCall
                 cry.play()
             }
         } else if (pokemonOnSpace !== undefined) {
@@ -485,6 +487,7 @@ function checkSpecial(num) {
                     console.log("Playing cry for " + pokemonOnSpace)
                     cry.src = 'https://pokemoncries.com/cries-old/' + pokemonOnSpace[index] + '.mp3'
                     cry.oncanplaythrough = function () {
+                        // noinspection JSIgnoredPromiseFromCall
                         cry.play()
                         cry.onended = function () {
                             playCurrent(index + 1)
@@ -556,6 +559,7 @@ function checkSpecial(num) {
                 if (player !== json.caterpiePlayer)
                     json.players[player].tags.add("Slow")
             break;
+        case spaces.psyduck:
         case spaces.slowpoke:
             if (currentPlayer.tags.has("Poser")) {
                 currentPlayer.tags.delete("Poser")
@@ -569,8 +573,6 @@ function checkSpecial(num) {
                 let numTurns = document.getElementById('move').value
                 if (parseInt(numTurns, 10) <= 3)
                     currentPlayer.lostTurns++
-                else
-                    currentPlayer.finishes++
             }, 600);
             break;
         case spaces.evolution:
@@ -609,6 +611,7 @@ function checkSpecial(num) {
                     removeAll()
                 }
             }
+        case spaces.giovanni:
         case spaces.silphCo:
         case spaces.scientist:
         case spaces.teamRocket:
