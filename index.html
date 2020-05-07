@@ -4,7 +4,6 @@
 <head>
     <meta charset="utf-8" />
     <link href="style.css" rel="stylesheet" />
-    <script src="js/jquery-1.9.0.min.js"></script>
     
 </head>
 
@@ -13,6 +12,9 @@
 <div class="fallback-message">
     <p>Your browser <b>doesn't support the features required</b> by impress.js.</p>
     <p>For the best gaming experience please use the latest <b>Chrome</b>, <b>Safari</b> or <b>Firefox</b> browser, and enable JavaScript.</p>
+</div>
+<div style="display:flex;justify-content:center;align-items:center;height:100vh">
+    <div id="console"></div>
 </div>
 
 <div id="impress">
@@ -94,21 +96,20 @@
 
 </div>
 
-<div id="start"">
+<div id="start">
     <div id="content">
         <h1>Pokemon Drinking Game!</h1>
-        <form id="form" action="game.php">
+        <div id="form" style="width:auto">
             <table id="formTable">
             <tr><th>Player Name:</th><th>Starter:</th></tr>
             </table>
-            <input id="playButton" type="submit" value="Play">
+            <button id="playButton" onclick="onPlay(this)">Play</button>
             <p>Refresh the page to start a new game.</p>
-        </form>
+        </div>
     </div>
 </div>
 
 <div id="menu">
-    <div id="console"></div>
     <button onclick="impress().goto(0)" title="Zoom out to view the entire board. KEY='w'">Overview</button>
     <button onclick="selectNextPlayer(-1)" title="Select previous player. KEY='a'"><</button>
     <button onclick="playerName(json.selectedPlayer)" id="selectedPlayerName" title="Show this players token on the board.">Name</button>
