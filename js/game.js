@@ -393,7 +393,6 @@ function onPlay() {
                 json.players[count].token = currentStarter;
                 json.players[count].space = 0;
                 json.players[count].lostTurns = 0;
-                json.players[count].doubleSpeed = false;
                 json.players[count].tags = new Set();
                 let tagLabel = document.getElementById("tags").appendChild(document.createElement("div"))
                 tagLabel.textContent = currentPlayer + ":"
@@ -542,7 +541,7 @@ function checkSpecial(num) {
             currentPlayer.tags.add("Silent")
             break;
         case spaces.bicycle:
-            currentPlayer.doubleSpeed = true
+            currentPlayer.tags.add("Fast AF")
             break;
         case spaces.magikarp:
             currentPlayer.tags.add("Karpal Tunnel")
@@ -578,14 +577,12 @@ function checkSpecial(num) {
         case spaces.evolution:
             let evolveBtn = modal.appendChild(document.createElement("button"))
             evolveBtn.textContent = "Evolve"
-            evolveBtn.id = "modalbtn1"
             evolveBtn.onclick = function () {
                 removeAll();
                 json.players[json.selectedPlayer].tags.add("Evolving")
             }
             let extraTurnBtn = modal.appendChild(document.createElement("button"))
             extraTurnBtn.textContent = "Extra Turn"
-            extraTurnBtn.id = "modalbtn2"
             extraTurnBtn.onclick = function () {
                 removeAll()
                 for (let player = 0; player < json.players.length; player++)
@@ -761,8 +758,8 @@ function go(space) {
             // Special space logic that doesn't require the space number
             if (json.caterpiePlayer)
                 move = Math.ceil(move / 2)
-            else if (json.players[json.selectedPlayer].doubleSpeed) {
-                json.players[json.selectedPlayer].doubleSpeed = false
+            else if (json.players[json.selectedPlayer].tags.has("Fast AF")) {
+                json.players[json.selectedPlayer].tags.delete("Fast AF")
                 move *= 2
             } else if (json.players[json.selectedPlayer].tags.has("Confused")) {
                 if (move <= 3)
@@ -862,7 +859,7 @@ function nextTurn() {
 }
 
 document.addEventListener('keydown', function (e) {
-    //81=q 87=w e=69 r=82 a=65 s=83 d=68
+    //81=q 87=w e=69 r=82 a=65 s=83 d=68 space=32
     if (hard.gameStart === true) {
         switch (e.keyCode) {
             case 65: //a=left
@@ -882,6 +879,9 @@ document.addEventListener('keydown', function (e) {
                 break;
             case 87: //w=go
                 go();
+                break;
+            case 32: //space=next turn
+                nextTurn();
                 break;
             default:
         }
