@@ -2,7 +2,7 @@
 This Pokemon Drinking Game is built using [impress.js](https://github.com/bartaz/impress.js/). Play it online [here](https://moomoomoo309.github.io/pokemon-drinking-game/#/overview).
 ## The Board
 
-![Pokemon Drinking Game Board] (https://github.com/moomoomoo309/pokemon-drinking-game/blob/master/wall-old.png "Pokemon Drinking Game Board")
+![Pokemon Drinking Game Board](https://github.com/moomoomoo309/pokemon-drinking-game/blob/master/wall-old.png "Pokemon Drinking Game Board")
 
 ## Game features:
 

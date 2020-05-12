@@ -382,6 +382,21 @@ let json = {
 let preSpaceCount = 3;
 document.getElementById('menu').style.display = 'none';
 
+function makeButtonsAllPlayers(modal, removeFct, btnCallback) {
+    for (let player = 0; player < json.players.length; player++) {
+        let currentButton = modal.appendChild(document.createElement("button"))
+        currentButton.textContent = json.players[player].name
+        currentButton.onclick = function () {
+            for (player = 0; player < json.players.length; player++)
+                if (currentButton.textContent === json.players[player].name) {
+                    btnCallback(json.players[player])
+                    break
+                }
+            removeAll()
+        }
+    }
+}
+
 function onPlay() {
     let count = 0;
     for (let i = 0; i < hard.maxPlayers; i++) {
@@ -443,7 +458,7 @@ function nextHardStop(num) {
         let hardStop = parseInt(hard.stop[i].space, 10);
         if (cspace >= hardStop && cspace < parseInt(hard.stop[i + 1].space, 10)) {
             console.log(parseInt(hard.stop[i + 1].space, 10));
-            return parseInt(hard.stop[i + 1].space, 10);
+            return parseInt(hard.stop[i + 1 + json.players[num].tags.has("Evolving")].space, 10);
         }
     }
     return 71;
@@ -461,7 +476,6 @@ function roll(offsetTime) {
             document.getElementById('move').value = d6();
         }, (offsetTime + i * 50));
     }
-    echo("");
 }
 
 let cry = new Audio()
@@ -511,6 +525,7 @@ function checkSpecial(num) {
         case spaces.pidgey:
         case spaces.jigglypuff:
         case spaces.rareCandy:
+            // Give the player an extra turn by making all other players lose a turn
             for (let player = 0; player < json.players.length; player++)
                 if (player !== json.selectedPlayer)
                     json.players[player].lostTurns++
@@ -535,10 +550,23 @@ function checkSpecial(num) {
         case spaces.channeler:
             currentPlayer.tags.add("Beer Bitch")
         case spaces.pokemonTower:
-        case spaces.haunter:
         case spaces.cubone:
         case spaces.silphScope:
             currentPlayer.tags.add("Silent")
+            break;
+        case spaces.haunter:
+            currentPlayer.tags.add("Silent")
+            echo("Who would you like to send back?")
+            makeButtonsAllPlayers(modal, removeAll, function(player) {
+                let currentPlayer = json.selectedPlayer
+                for (let i = 0; i < json.players.length; i++)
+                    if (json.players[i] === player) {
+                        json.selectedPlayer = i
+                        break
+                    }
+                go(Math.max(1, player.space - 10))
+                json.selectedPlayer = currentPlayer
+            })
             break;
         case spaces.bicycle:
             currentPlayer.tags.add("Fast AF")
@@ -596,18 +624,9 @@ function checkSpecial(num) {
             break;
         case spaces.lapras:
             echo("Who should be confused?")
-            for (let player = 0; player < json.players.length; player++) {
-                let currentButton = modal.appendChild(document.createElement("button"))
-                currentButton.textContent = json.players[player].name
-                currentButton.onclick = function () {
-                    for (player = 0; player < json.players.length; player++)
-                        if (currentButton.textContent === json.players[player].name) {
-                            json.players[player].tags.add("Confused")
-                            break
-                        }
-                    removeAll()
-                }
-            }
+            makeButtonsAllPlayers(modal, removeAll, function (player) {
+                player.tags.add("Confused")
+            })
         case spaces.giovanni:
         case spaces.silphCo:
         case spaces.scientist:
