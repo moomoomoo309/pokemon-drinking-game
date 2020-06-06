@@ -762,7 +762,7 @@ function checkSpecial(num) {
 
 function battle(pl, sp) {
     if (!battleGymCheckbox.checked && isAtGym(pl))
-        return
+        return []
     let count = 0;
     let trainers = [];
     for (let i = 0; i < json.players.length; i++) {
