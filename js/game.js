@@ -464,6 +464,16 @@ function nextHardStop(num) {
     return 71;
 }
 
+function isAtGym(num) {
+    let cspace = parseInt(json.players[num].space, 10);
+    for (let i = 0; i < hard.stop.length; i++) {
+        let hardStop = parseInt(hard.stop[i].space, 10);
+        if (cspace === hardStop)
+            return true
+    }
+    return false
+}
+
 function d6() {
     return 1 + Math.floor(Math.random() * 6);
 }
@@ -751,7 +761,7 @@ function checkSpecial(num) {
 }
 
 function battle(pl, sp) {
-    if (!battleGymCheckbox.checked && nextHardStop(pl) === sp)
+    if (!battleGymCheckbox.checked && isAtGym(pl))
         return
     let count = 0;
     let trainers = [];
