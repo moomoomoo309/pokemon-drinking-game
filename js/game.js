@@ -392,7 +392,7 @@ function makeButtonsAllPlayers(modal, removeFct, btnCallback) {
                     btnCallback(json.players[player])
                     break
                 }
-            removeAll()
+            removeFct()
         }
     }
 }
@@ -480,6 +480,7 @@ function roll(offsetTime) {
 
 let cry = new Audio()
 let criesCheckbox = document.getElementById("cries")
+let battleGymCheckbox = document.getElementById("battlegyms")
 
 function checkSpecial(num) {
     // Play cries
@@ -750,6 +751,8 @@ function checkSpecial(num) {
 }
 
 function battle(pl, sp) {
+    if (!battleGymCheckbox.checked && nextHardStop(sp) === sp)
+        return
     let count = 0;
     let trainers = [];
     for (let i = 0; i < json.players.length; i++) {
