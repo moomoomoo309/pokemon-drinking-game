@@ -751,7 +751,7 @@ function checkSpecial(num) {
 }
 
 function battle(pl, sp) {
-    if (!battleGymCheckbox.checked && nextHardStop(sp) === sp)
+    if (!battleGymCheckbox.checked && nextHardStop(pl) === sp)
         return
     let count = 0;
     let trainers = [];
